@@ -14,6 +14,9 @@ library(usmap)
 topData <- fread("./data/State_MedianListingPrice_TopTier.csv")
 colnames(topData)[1] <- "state"
 
+## Read bottem tier file, name it 'data.
+data <- fread("./data/State_MedianListingPrice_BottomTier.csv")
+
 ## Read geojson file for leaflet map.
 states <- geojson_read(x = "./data/us-states.geojson", what = "sp")
 
@@ -104,5 +107,27 @@ server <- function(input,output) {
           direction = "auto")) %>% 
       addLegend(pal = pal, values = ~topData$`03-Mar`, opacity = 0.7, 
                 title = "March 2019 median price", position = "bottomright")
+  })
+  
+  ## Create a plot that shows the price change between two dates selected by
+  ## user.
+  output$plot <- renderPlot ({
+    date_one <-  format(as.Date(input$date_one), "%Y-%m")
+    date_two <- format(as.Date(input$date_one), "%Y-%m")
+    
+    plot(x = pull(data, date_one),
+         y = pull(data, date_two),
+         xlab = paste("First Date:", input$date_one),
+         ylab = paste("Second Date:", input$date_two),
+         main = "Difference Between Median Prices For Bottom Tier Homes",
+         col = c(input$color_one, input$color_two),
+         pch=19)
+    legend("topleft", legend=c("First Date", "Second Date"),
+           col=c(input$color_one, input$color_two), lty=1:2, cex=0.8)
+  })
+  
+  ## Tells user the date being selected.
+  output$message <- renderText ({
+    paste("The dates you chose were", data[, input$date_one], "and", data[, input$date_two])
   })
 }
