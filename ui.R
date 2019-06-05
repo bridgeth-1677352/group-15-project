@@ -114,6 +114,50 @@ ui <- navbarPage(inverse = F,
                           leafletOutput("map3")
                  ),
                  
+                 tabPanel("Difference Between Median Prices for Top Tier Homes",
+                          sidebarLayout(
+                            sidebarPanel("The scatterplot compares median prices of top-tier homes on two
+                                         different dates. It can be shown that generally later dates have
+                                         higher median prices. However, there are earlier dates that are outliers and
+                                         are higher. Overall, however, the generall trend of all dates are that the 
+                                         median price increases.",
+                                         dateInput(inputId = "date_one",
+                                                   label = "First Date to Compare Data
+                                                   (format: yy-M from 10-Jan to 19-Mar)",
+                                                   value = "10-Jan",
+                                                   format = "yy-M"
+                                         ),
+                                         dateInput(inputId = "date_two",
+                                                   label = "Second Date to Compare Data
+                                                   (format: yy-M from 10-Jan to 19-Mar)",
+                                                   value = "19-Mar",
+                                                   format = "yy-M"
+                                         ),
+                                         
+                                         selectInput(inputId = "color_one",
+                                                     label = "Color of First Date Data:",
+                                                     choices = c("Yellow" = "#ffd400",
+                                                                 "Orange" = "#f0865f",
+                                                                 "Pink" = "#ffacd9",
+                                                                 "Gray" = "#9ea7a6")),
+                                         selectInput(inputId = "color_two",
+                                                     label = "Color of Second Date Data:",
+                                                     choices = c("Blue" = "#0098fe",
+                                                                 "Green" = "#b0ffc0",
+                                                                 "Red" = "#b02f30",
+                                                                 "Purple" = "#3e015c")),
+                                         
+                                         hr(),
+                                         helpText("Dates of Median Prices for Top Tier Homes.")
+                            ),
+                            mainPanel(
+                              plotOutput("plot"),
+                              textOutput("message")
+                            )
+                            
+                 )
+                          ),
+                 
                  tabPanel("Difference Between Median Prices for Bottom Tier Homes",
                           sidebarLayout(
                             sidebarPanel("The scatterplot compares median prices of bottom-tier homes on two

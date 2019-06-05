@@ -44,7 +44,9 @@ server <- function(input,output) {
                             label = scales::comma) + 
       theme(legend.position = "right")
   })
-  
+
+    
+
   ## Map of US median sale price 01/2010 with differnt shades of color according
   ## to different prices, hover on a state will show specific price information.
   output$map2 <- renderLeaflet({
@@ -120,6 +122,26 @@ server <- function(input,output) {
          xlab = paste("First Date:", input$date_one),
          ylab = paste("Second Date:", input$date_two),
          main = "Difference Between Median Prices For Bottom Tier Homes",
+         col = c(input$color_one, input$color_two),
+         pch=19)
+    legend("topleft", legend=c("First Date", "Second Date"),
+           col=c(input$color_one, input$color_two), lty=1:2, cex=0.8)
+  })
+  
+  ## Tells user the date being selected.
+  output$message <- renderText ({
+    paste("The dates you chose were", data[, input$date_one], "and", data[, input$date_two])
+  })
+  
+  output$plot2 <- renderPlot ({
+    date_one <-  format(as.Date(input$date_one), "%Y-%m")
+    date_two <- format(as.Date(input$date_one), "%Y-%m")
+    
+    plot(x = pull(data, date_one),
+         y = pull(data, date_two),
+         xlab = paste("First Date:", input$date_one),
+         ylab = paste("Second Date:", input$date_two),
+         main = "Difference Between Median Prices For Top Tier Homes",
          col = c(input$color_one, input$color_two),
          pch=19)
     legend("topleft", legend=c("First Date", "Second Date"),
