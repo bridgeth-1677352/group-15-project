@@ -60,21 +60,17 @@ ui <- navbarPage(inverse = F,
                             manipulated through R and Shiny coding."),
                           
                           tags$h3("Link to Zillow Datasets"),
-                          p("https://www.zillow.com/research/data/
-
-                            We specifically used the datasets under the 'Home Listing and Sales' section.
+                          p("https://www.zillow.com/research/data/"),
+                          p("We specifically used the datasets under the 'Home Listing and Sales' section.
                             There we clicked data type 'Median List Price - Bottom Tier ($) with geography 'State'
                             to get the bottom-tier data, and data type 'Median List Price - Top Tier ($)' with geography
                             'State' to get top-tier data."),
                           
                           tags$h3("Group 15 Team"),
-                          p("**Bridget Haney** github: https://github.com/bridgeth-1677352 
-
-                            **Huawen Sun** github: https://github.com/529022366
-                            
-                            **Tyson Thoi** github: https://github.com/tpthoi
-                            
-                            **Alaa Amed** github: https://github.com/Alaa-Amed")
+                          p("**Bridget Haney** github: https://github.com/bridgeth-1677352"),
+                          p("**Huawen Sun** github: https://github.com/529022366"),
+                          p("**Tyson Thoi** github: https://github.com/tpthoi"),
+                          p("**Alaa Amed** github: https://github.com/Alaa-Amed")
                  ),
                  
                  
