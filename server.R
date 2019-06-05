@@ -9,16 +9,21 @@ library(geojsonio)
 library(leaflet)
 library(usmap)
 
-
+## Read the top tier price file as 'topData', change the column name with state
+## to 'state'.
 topData <- fread("./data/State_MedianListingPrice_TopTier.csv")
 colnames(topData)[1] <- "state"
+
+## Read geojson file for leaflet map.
 states <- geojson_read(x = "./data/us-states.geojson", what = "sp")
 
+## infomation for hovering over state of 01/2010 map.
 labels <- sprintf(
   "<strong>%s</strong><br/>%g dollars </sup>",
   topData$state, topData$`10-Jan`
 ) %>% lapply(htmltools::HTML)
 
+## infomation for hovering over state of 03/2019 map.
 labels2 <- sprintf(
   "<strong>%s</strong><br/>%g dollars </sup>",
   topData$state, topData$`19-Mar`
@@ -26,9 +31,10 @@ labels2 <- sprintf(
 
 bins <- c(0, 100000, 200000, 300000, 400000, 500000, Inf)
 
-
 server <- function(input,output) {
   
+  ## making the first map for comparison, which users can choose any month 
+  ## between 2010 and 2019 to display.
   output$map <- renderPlot({
     plot_usmap(data = topData, values = input$time, lines = "white") +
       scale_fill_continuous(low = "Yellow", high = "Red", name = "Sale Median price",
@@ -36,6 +42,8 @@ server <- function(input,output) {
       theme(legend.position = "right")
   })
   
+  ## Map of US median sale price 01/2010 with differnt shades of color according
+  ## to different prices, hover on a state will show specific price information.
   output$map2 <- renderLeaflet({
     pal <- colorBin("YlOrRd", domain = topData$'01-Jan', bins = bins) 
     leaflet(states) %>% 
@@ -66,6 +74,7 @@ server <- function(input,output) {
                     title = "Jan 2010 median price", position = "bottomright")
   })
   
+  ## Same as second map, but the date is 03/2019.
   output$map3 <- renderLeaflet({
     pal <- colorBin("YlOrRd", domain = topData$'19-Mar', bins = bins)
     
