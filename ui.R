@@ -121,38 +121,38 @@ ui <- navbarPage(inverse = F,
                                          higher median prices. However, there are earlier dates that are outliers and
                                          are higher. Overall, however, the generall trend of all dates are that the 
                                          median price increases.",
-                                         dateInput(inputId = "date_one",
+                                         dateInput(inputId = "first_date",
                                                    label = "First Date to Compare Data
-                                                   (format: yy-M from 10-Jan to 19-Mar)",
-                                                   value = "10-Jan",
-                                                   format = "yy-M"
+                                                    (format: yyyy-mm from 2010-01 to 2019-03)",
+                                                   value = "2010-01",
+                                                   format = "yyyy-mm"
                                          ),
-                                         dateInput(inputId = "date_two",
+                                         dateInput(inputId = "second_date",
                                                    label = "Second Date to Compare Data
-                                                   (format: yy-M from 10-Jan to 19-Mar)",
-                                                   value = "19-Mar",
-                                                   format = "yy-M"
+                                                   (format: yyyy-mm from 2010-01 to 2019-03)",
+                                                   value = "2019-03",
+                                                   format = "yyyy-mm"
                                          ),
                                          
-                                         selectInput(inputId = "color_one",
+                                         selectInput(inputId = "first_color",
                                                      label = "Color of First Date Data:",
-                                                     choices = c("Yellow" = "#ffd400",
-                                                                 "Orange" = "#f0865f",
-                                                                 "Pink" = "#ffacd9",
-                                                                 "Gray" = "#9ea7a6")),
-                                         selectInput(inputId = "color_two",
+                                                     choices = c("yellow" = "#ffd400",
+                                                                 "orange" = "#f0865f",
+                                                                 "pink" = "#ffacd9",
+                                                                 "gray" = "#9ea7a6")),
+                                         selectInput(inputId = "second_color",
                                                      label = "Color of Second Date Data:",
-                                                     choices = c("Blue" = "#0098fe",
-                                                                 "Green" = "#b0ffc0",
-                                                                 "Red" = "#b02f30",
-                                                                 "Purple" = "#3e015c")),
+                                                     choices = c("blue" = "#0098fe",
+                                                                 "green" = "#b0ffc0",
+                                                                 "red" = "#b02f30",
+                                                                 "purple" = "#3e015c")),
                                          
                                          hr(),
                                          helpText("Dates of Median Prices for Top Tier Homes.")
                             ),
                             mainPanel(
-                              plotOutput("plot"),
-                              textOutput("message")
+                              plotOutput("plot2"),
+                              textOutput("message2")
                             )
                             
                  )

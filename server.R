@@ -12,6 +12,8 @@ library(usmap)
 ## Read the top tier price file as 'topData', change the column name with state
 ## to 'state'.
 topData <- fread("./data/State_MedianListingPrice_TopTier.csv")
+topData1 <- fread("./data/State_MedianListingPrice_TopTier1.csv")
+
 colnames(topData)[1] <- "state"
 
 ## Read bottem tier file, name it 'data.
@@ -134,22 +136,22 @@ server <- function(input,output) {
   })
   
   output$plot2 <- renderPlot ({
-    date_one <-  format(as.Date(input$date_one), "%Y-%m")
-    date_two <- format(as.Date(input$date_one), "%Y-%m")
+    first_date <-  format(as.Date(input$first_date), "%Y-%m")
+    second_date <- format(as.Date(input$first_date), "%Y-%m")
     
-    plot(x = pull(data, date_one),
-         y = pull(data, date_two),
-         xlab = paste("First Date:", input$date_one),
-         ylab = paste("Second Date:", input$date_two),
+    plot(x = pull(topData1, first_date),
+         y = pull(topData1, second_date),
+         xlab = paste("First Date:", input$first_date),
+         ylab = paste("Second Date:", input$second_date),
          main = "Difference Between Median Prices For Top Tier Homes",
-         col = c(input$color_one, input$color_two),
+         col = c(input$first_color, input$second_color),
          pch=19)
     legend("topleft", legend=c("First Date", "Second Date"),
-           col=c(input$color_one, input$color_two), lty=1:2, cex=0.8)
+           col=c(input$first_color, input$second_color), lty=1:2, cex=0.8)
   })
   
   ## Tells user the date being selected.
-  output$message <- renderText ({
-    paste("The dates you chose were", data[, input$date_one], "and", data[, input$date_two])
+  output$message2 <- renderText ({
+    paste("The dates you chose were", topData1[, input$first_date], "and", topData1[, input$second_date])
   })
 }
