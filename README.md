@@ -49,7 +49,7 @@ manipulated through R and Shiny coding.
 https://www.zillow.com/research/data/
 
 We specifically used the datasets under the "Home Listing and Sales" section.
-There we clicked data type 'Median List Price - Bottom Tier ($)'' with geography 'State'
+There we clicked data type 'Median List Price - Bottom Tier ($) with geography 'State'
 to get the bottom-tier data, and data type 'Median List Price - Top Tier ($)' with geography
 'State' to get top-tier data.
 
