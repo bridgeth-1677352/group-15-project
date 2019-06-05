@@ -11,14 +11,14 @@ library(usmap)
 
 ## Read the top tier price file as 'topData', change the column name with state
 ## to 'state'.
-topData <- fread("./data/State_MedianListingPrice_TopTier.csv")
+topData <- fread("Data/State_MedianListingPrice_TopTier.csv")
 colnames(topData)[1] <- "state"
 
 ## Read bottem tier file, name it 'data.
-data <- fread("./data/State_MedianListingPrice_BottomTier.csv")
+data <- fread("Data/State_MedianListingPrice_BottomTier.csv")
 
 ## Read geojson file for leaflet map.
-states <- geojson_read(x = "./data/us-states.geojson", what = "sp")
+states <- geojson_read(x = "Data/us-states.geojson", what = "sp")
 
 ## infomation for hovering over state of 01/2010 map.
 labels <- sprintf(
@@ -34,8 +34,11 @@ labels2 <- sprintf(
 
 bins <- c(0, 100000, 200000, 300000, 400000, 500000, Inf)
 
-server <- function(input,output) {
-  
+server <- function(input,output, session) {
+  observeEvent(input$do, {
+    print("clicked")
+    updateTabsetPanel(session = session, inputId = "Main", selected = "Home")
+  })
   ## making the first map for comparison, which users can choose any month 
   ## between 2010 and 2019 to display.
   output$map <- renderPlot({

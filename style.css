@@ -1,0 +1,26 @@
+
+.myclass {
+}
+
+h3 {
+  color: darkblue;
+  font-weight: bold;
+}
+
+p { color: #696969;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  margin: 0 0 24px;
+
+  text-justify: inter-word;
+  width: 700px;
+}
+h6 {
+  font-family: Century Gothic, sans-serif;
+  font-weight: bold;
+}
+
+p.myclass {
+  color: darkblue;
+}

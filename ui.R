@@ -2,31 +2,45 @@ library(data.table)
 library(shiny)
 library(leaflet)
 library(shinythemes)
+library(shinyWidgets)
 
-topData <- fread("./data/State_MedianListingPrice_TopTier.csv")
+topData <- fread("Data/State_MedianListingPrice_TopTier.csv")
 colnames(topData)[1] <- "state"
 topData <- topData[ ,3:113]
 
 ## Define UI for application as navbarPage, and it will display different tab panels.
-ui <- navbarPage(inverse = F,
-                 fluid = T,
-                 theme = shinytheme("flatly"),
-                  "2010-2019 US house sale median price",
-                 
+ui <- fluidPage(includeCSS("style.css"), img(src = "logo.png", width = "100px", 
+                height = "30px", style="position: absolute; left:1040px;top: 5px;"), 
+                tags$h6("Zillow Tool for Home"),
+                 tags$hr(),
                  ## Home page, shows information of data and team.
+                 tabsetPanel(id = "Main",
+                          tabPanel(title = "welcome",
+                          
+                          actionButton("do", "Learn More", style="color: #fff; 
+                          background-color: #337ab7; border-color: #2e6da4; 
+                          position: absolute; left: 530px;top: 550px;
+                          padding: 8px 34px;"),
+                          
+                 
+                          tags$img(src="m.png", width = "1120px", height = "600px")
+
+                          
+                             ),
+                 
+                 
                  tabPanel("Home",
-                          
-                          tags$h3("welcome"),
-                          
-                          tags$h3("Median Prices of United States Homes"),
-                          p("The two datasets that our group analyzed contained the median
-                             prices of United States homes. Each dataset displayed different
-                             tiers of homes: top tier houses and bottom tier
-                             houses. This data came from the site 'Zillow', which is a
-                             real estate marketing company. We were interested in this data
-                             to see the trends in median prices throughout a period of time
-                             in certain states."),
-                          
+                          tags$div(class = "myclass",
+                            tags$h3("Median Prices of United States Homes"),
+                            tags$p("The two datasets that our group analyzed contained the median
+                                          prices of United States homes. Each dataset displayed different
+                                          tiers of homes: top tier houses and bottom tier
+                                          houses. This data came from the site 'Zillow', which is a
+                                          real estate marketing company. We were interested in this data
+                                          to see the trends in median prices throughout a period of time
+                                          in certain states.")
+                            ),
+
                           tags$h3("Datasets Used"),
                           tags$h4("Top-Tier Homes (State_MedianListingPrice_TopTier.csv):"),
                           p("This dataset looks at the median prices of sold Homes categorized
@@ -59,19 +73,26 @@ ui <- navbarPage(inverse = F,
                             based on user input. The datasets were csv files, so they were easily
                             manipulated through R and Shiny coding."),
                           
-                          tags$h3("Link to Zillow Datasets"),
+                          tags$hr(),
+                          
+                          tags$h4("Link to Zillow Datasets"),
                           p("https://www.zillow.com/research/data/"),
                           p("We specifically used the datasets under the 'Home Listing and Sales' section.
                             There we clicked data type 'Median List Price - Bottom Tier ($) with geography 'State'
                             to get the bottom-tier data, and data type 'Median List Price - Top Tier ($)' with geography
                             'State' to get top-tier data."),
                           
-                          tags$h3("Group 15 Team"),
-                          p("**Bridget Haney** github: https://github.com/bridgeth-1677352"),
-                          p("**Huawen Sun** github: https://github.com/529022366"),
-                          p("**Tyson Thoi** github: https://github.com/tpthoi"),
-                          p("**Alaa Amed** github: https://github.com/Alaa-Amed")
+                          tags$h4("Group 15 Team"),
+                          a(href=" https://github.com/bridgeth-1677352", "Bridget Haney"),
+                          tags$br(),
+                          a(href=" Huawen Sun** github: https://github.com/529022366", "Huawen Sun"),
+                          tags$br(),
+                          a(href=" https://github.com/tpthoi", "Tyson Thoi"),
+                          tags$br(),
+                          a(href=" https://github.com/Alaa-Amed", "Alaa Amed"),
+                          tags$br()
                  ),
+                 
                  
                  
                  ## This panel displays the comparison map, which user can choose
@@ -157,4 +178,6 @@ ui <- navbarPage(inverse = F,
                    
                  )
 )
+)
+#)
 )
