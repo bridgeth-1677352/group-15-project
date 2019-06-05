@@ -9,6 +9,7 @@ library(geojsonio)
 library(leaflet)
 library(usmap)
 
+
 topData <- fread("./data/State_MedianListingPrice_TopTier.csv")
 colnames(topData)[1] <- "state"
 states <- geojson_read(x = "./data/us-states.geojson", what = "sp")
