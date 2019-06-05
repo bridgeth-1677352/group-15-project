@@ -81,6 +81,11 @@ ui <- navbarPage(inverse = F,
                           tags$h3("2010-2019 US House Sale Median Price Comparison Map"),
                           p("You can select different dates at the left side panel
                             to see different price maps for comparison."),
+                          p("The colors indicated on the map represent different price ranges.
+                            Generally higher states like California, New York, and Hawaii are represented by dark orange, meaning their median prices are the highest. 
+                            The generally lower states, like Texas and Nebraska, are light yellow to reflect their lower median prices. As the year and month
+                            increase, so does the median price. From the years of 2010-2019, Washington noticeably increases
+                            in price, but still does not match the prices of California and New York"),
                           sidebarLayout(
                             sidebarPanel(
                               selectInput("time", "select the year and month to display", 
@@ -100,9 +105,56 @@ ui <- navbarPage(inverse = F,
                           tags$h3("01/2010--03/2019 US House Sale Median Price Map"),
                           p("These graphs are US house sale median price map at Jan/2010 and March/2019.
                             The shade of colors indicate different prices. You can hover mouse on a state
-                            to see specific information."),
+                            to see specific information. "),
+                          p("It is clear that nearly all states increase 
+                            median sale price after 9 years, New York, California and Hawaii still have
+                            the highest price among all states."),
                           leafletOutput("map2"),
                           br(),
                           leafletOutput("map3")
+                 ),
+                 
+                 tabPanel("Difference Between Median Prices for Bottom Tier Homes",
+                          sidebarLayout(
+                            sidebarPanel("The scatterplot compares median prices of bottom-tier homes on two
+                                         different dates. It can be shown that generally later dates have
+                                         higher median prices. However, there are earlier dates that are outliers and
+                                         are higher. Overall, however, the generall trend of all dates are that the 
+                                         median price increases.",
+                              dateInput(inputId = "date_one",
+                                        label = "First Date to Compare Data
+                (format: yyyy-mm from 2010-01 to 2019-03)",
+                                        value = "2010-01",
+                                        format = "yyyy-mm"
+                              ),
+                              dateInput(inputId = "date_two",
+                                        label = "Second Date to Compare Data
+                (format: yyyy-mm from 2010-01 to 2019-03)",
+                                        value = "2019-03",
+                                        format = "yyyy-mm"
+                              ),
+                              
+                              selectInput(inputId = "color_one",
+                                          label = "Color of First Date Data:",
+                                          choices = c("Blue" = "#0098fe",
+                                                      "Green" = "#b0ffc0",
+                                                      "Red" = "#b02f30",
+                                                      "Purple" = "#3e015c")),
+                              selectInput(inputId = "color_two",
+                                          label = "Color of Second Date Data:",
+                                          choices = c("Yellow" = "#ffd400",
+                                                      "Orange" = "#f0865f",
+                                                      "Pink" = "#ffacd9",
+                                                      "Gray" = "#9ea7a6")),
+                              
+                              hr(),
+                              helpText("Dates of Median Prices for Bottom Tier Homes.")
+                            ),
+                            mainPanel(
+                              plotOutput("plot"),
+                              textOutput("message")
+                            )
+                   
                  )
+)
 )
